@@ -1,0 +1,20 @@
+html, body, #app {
+  width: 100%;
+  font-size: 16px;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+
+  @each $breakpoint in $grid-breakpoints {
+    $i: index($grid-breakpoints, $breakpoint);
+    @media (min-width: $breakpoint) {
+      width: nth($container-max-widths, $i);
+    }
+  }
+}
