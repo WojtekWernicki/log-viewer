@@ -11,6 +11,7 @@ table {
   thead tr th,
   tbody tr td {
     flex: 1;
+    padding: 0 10px;
   }
 
   thead {
@@ -19,6 +20,17 @@ table {
 
     tr th {
       border: 1px solid black;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        border: 1px solid black;
+        max-height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
