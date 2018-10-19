@@ -8,20 +8,17 @@ class Table extends Component {
   }
 
   render() {
+    const sortedData = data.sort((a, b) => new Date(a.date) < new Date(b.date));
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          { data.sort((a, b) => new Date(a.date) < new Date(b.date)).slice(0, 15).map((row, i) => <Row key={i} {...row} />) }
-        </tbody>
-      </table>
+      <div className="table">
+        <div className="table__row table__header">
+          <div className="table__row--item table__header--item">Title</div>
+          <div className="table__row--item table__header--item">Type</div>
+          <div className="table__row--item table__header--item">Description</div>
+          <div className="table__row--item table__header--item">Date</div>
+        </div>
+        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} />) }
+      </div>
     )
   }
 }

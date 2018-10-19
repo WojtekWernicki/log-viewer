@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import format from 'date-fns/format';
 import Enums from '../../../helpers/Enums';
 
 class Row extends Component {
@@ -6,16 +7,24 @@ class Row extends Component {
     super();
   }
 
+  showDetails = () => {
+    console.info({ ...this.props });
+  }
+
   render() {
     const { title, type, date, description } = this.props;
+    const formatedDate = format(date, 'DD MMM YYYY HH:mm:ss');
 
     return (
-      <tr>
-        <td>{ Enums.eventType[type] }</td>
-        <td>{ title }</td>
-        <td>{ description }</td>
-        <td>{ date }</td>
-      </tr>
+      <div className="table__row">
+        <div className="table__row--item" data-header="Title">{title}</div>
+        <div className="table__row--item" data-header="Type">{Enums.eventType[type]}</div>
+        <div className="table__row--item" data-header="Description">
+          {`${description.slice(0, 80)}...`}
+          <span onClick={this.showDetails}>more details</span>
+        </div>
+        <div className="table__row--item" data-header="Date">{formatedDate}</div>
+      </div>
     );
   }
 }

@@ -1,35 +1,48 @@
-table {
+.table {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   width: 100%;
 
-  thead,
-  tbody {
-    tr {
+  &__header {
+    display: none;
+
+    @media (min-width: nth($grid-breakpoints, 1)) {
+      font-weight: 700;
+    }
+  }
+
+  &__row {
+    width: 100%;
+
+    @media (min-width: nth($grid-breakpoints, 1)) {
       display: flex;
+      flex-flow: row nowrap;
     }
-  }
 
-  thead tr th,
-  tbody tr td {
-    flex: 1;
-    padding: 0 10px;
-  }
+    &--item {
+      display: flex;
+      flex-flow: row nowrap;
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 0.5em;
+      border: 1px solid $black;
+      word-break: break-word;
 
-  thead {
-    border: 2px solid #000;
-    line-height: 30px;
+      &:before {
+        content: attr(data-header);
+        width: 30%;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
 
-    tr th {
-      border: 1px solid black;
-    }
-  }
+      @media (min-width: nth($grid-breakpoints, 1)) {
+        padding: 0.5em;
+        flex-flow: column nowrap;
 
-  tbody {
-    tr {
-      td {
-        border: 1px solid black;
-        max-height: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        &:before {
+          content: none;
+        }
       }
     }
   }
