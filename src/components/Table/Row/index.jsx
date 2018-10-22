@@ -13,7 +13,7 @@ class Row extends Component {
 
   render() {
     const { title, type, date, description } = this.props;
-    const formatedDate = format(date, 'DD MMM YYYY HH:mm:ss');
+    const formatedDate = format(date * 1000, 'DD MMM YYYY HH:mm:ss');
 
     return (
       <div className="table__row">

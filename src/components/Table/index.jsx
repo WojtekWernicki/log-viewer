@@ -8,7 +8,12 @@ class Table extends Component {
   }
 
   render() {
-    const sortedData = data.sort((a, b) => new Date(a.date) < new Date(b.date));
+    const { columnSort, orderSort } = this.props;
+
+    const sortedData = orderSort.value === 'asc'
+      ? data.sort((a, b) => a[columnSort.value] > b[columnSort.value])
+      : data.sort((a, b) => a[columnSort.value] < b[columnSort.value]);
+
     return (
       <div className="table">
         <div className="table__row table__header">

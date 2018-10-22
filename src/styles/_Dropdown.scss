@@ -1,9 +1,13 @@
-$dropdownWidth: 200px;
+$dropdownWidth: 250px;
 
 .dropdown {
+  &__container {
+    display: flex;
+  }
+
   &__wrapper {
     width: $dropdownWidth;
-    margin-bottom: 20px;
+    margin: 0 20px 20px 0;
     cursor: pointer;
   }
 

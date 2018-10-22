@@ -14,15 +14,23 @@ const columnsDropdownOptions = [{
 }, {
   displayName: 'Date',
   value: 'date'
-}]
+}];
+
+const orderDropdownOptions = [{
+  displayName: 'Ascending',
+  value: 'asc'
+}, {
+  displayName: 'Descending',
+  value: 'desc'
+}];
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      columnsDropdownValue: [],
-      orderDropdownValue: []
+      columnsDropdownValue: columnsDropdownOptions[3],
+      orderDropdownValue: orderDropdownOptions[1]
     }
   }
 
@@ -36,13 +44,23 @@ class App extends Component {
     const { columnsDropdownValue, orderDropdownValue } = this.state;
     return (
       <div className="wrapper">
-        <Dropdown
-          title={'Sort by:'}
-          options={columnsDropdownOptions}
-          value={columnsDropdownValue}
-          onSelect={(value) => this.changeDropdownValue('columnsDropdownValue', value)}
+        <div className="dropdown__container">
+          <Dropdown
+            title={'Sort by:'}
+            options={columnsDropdownOptions}
+            value={columnsDropdownValue}
+            onSelect={(value) => this.changeDropdownValue('columnsDropdownValue', value)}
+          />
+          <Dropdown
+            title={'Sorting order:'}
+            options={orderDropdownOptions}
+            value={orderDropdownValue}
+            onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
+          />
+        </div>
+        <Table columnSort={columnsDropdownValue}
+          orderSort={orderDropdownValue}
         />
-        <Table />
       </div>
     );
   }
