@@ -3,8 +3,8 @@ import Row from './Row/';
 import data from '../../assets/server-logs.json';
 
 class Table extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
