@@ -1,36 +1,15 @@
 import React, { Component } from 'react';
 import Table from '../Table/';
 import Dropdown from '../Dropdown/';
-
-const columnsDropdownOptions = [{
-  displayName: 'Title',
-  value: 'title'
-}, {
-  displayName: 'Type',
-  value: 'type'
-}, {
-  displayName: 'Description',
-  value: 'description'
-}, {
-  displayName: 'Date',
-  value: 'date'
-}];
-
-const orderDropdownOptions = [{
-  displayName: 'Ascending',
-  value: 'asc'
-}, {
-  displayName: 'Descending',
-  value: 'desc'
-}];
+import Enums from '../../helpers/Enums';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      columnsDropdownValue: columnsDropdownOptions[3],
-      orderDropdownValue: orderDropdownOptions[1]
+      columnsDropdownValue: Enums.columnsDropdownOptions[3],
+      orderDropdownValue: Enums.orderDropdownOptions[1]
     }
   }
 
@@ -47,15 +26,22 @@ class App extends Component {
         <div className="dropdown__container">
           <Dropdown
             title={'Sort by:'}
-            options={columnsDropdownOptions}
+            options={Enums.columnsDropdownOptions}
             value={columnsDropdownValue}
             onSelect={(value) => this.changeDropdownValue('columnsDropdownValue', value)}
           />
           <Dropdown
             title={'Sorting order:'}
-            options={orderDropdownOptions}
+            options={Enums.orderDropdownOptions}
             value={orderDropdownValue}
             onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
+          />
+          <Dropdown
+            title={'Display only:'}
+            options={Enums.columnsDropdownOptions}
+            value={[]}
+            onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
+            multiple
           />
         </div>
         <Table columnSort={columnsDropdownValue}

@@ -21,14 +21,15 @@ class Dropdown extends Component {
   }
 
   render() {
-    const { options, value, title } = this.props;
+    const { options, value, title, multiple } = this.props;
     const { isOpened } = this.state;
 
     return (
       <div className="dropdown__wrapper">
-        <div className="dropdown__header">
-          <div className="dropdown__header--title"
-            onClick={ () => this.toggleList() }>
+        <div className="dropdown__header"
+            onClick={ () => this.toggleList() }
+            title={value}>
+          <div className="dropdown__header--title">
             { `${title} ${Object.keys(value).length ? value.displayName : ''}` }
           </div>
           <div className="dropdown__header--toggle">
@@ -42,8 +43,14 @@ class Dropdown extends Component {
               options.map((option, i) => (
                 <li className="dropdown__list--option"
                   key={i}
-                  onClick={() => this.chooseOption(option)}>
-                  { option.displayName }
+                  onClick={() => !multiple && this.chooseOption(option)}>
+                  { multiple ?
+                    <div className="dropdown__checkbox-wrapper">
+                      <input type="checkbox" id={option.value} value={option.value} />
+                      <label htmlFor={option.value}>{option.displayName}</label>
+                    </div> :
+                    option.displayName
+                 }
                 </li>
               ))
             }
