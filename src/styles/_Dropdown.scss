@@ -3,6 +3,14 @@ $dropdownWidth: 250px;
 .dropdown {
   &__container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    @media (min-width: nth($grid-breakpoints, 2)) {
+      flex-direction: row;
+      align-items: unset;
+    }
   }
 
   &__wrapper {
@@ -38,7 +46,7 @@ $dropdownWidth: 250px;
     z-index: 10;
     width: $dropdownWidth;
     background: $pureWhite;
-    box-shadow: 4px 7px 21px rgba(66, 66, 66, 0.18);
+    box-shadow: $boxShadow;
     border: 1px solid $black;
     border-top: none;
 

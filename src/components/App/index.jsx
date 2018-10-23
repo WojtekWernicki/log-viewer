@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Table from '../Table/';
 import Dropdown from '../Dropdown/';
+import Modal from '../Modal/';
 import Enums from '../../helpers/Enums';
 
 class App extends Component {
@@ -9,7 +10,9 @@ class App extends Component {
 
     this.state = {
       columnsDropdownValue: Enums.columnsDropdownOptions[3],
-      orderDropdownValue: Enums.orderDropdownOptions[1]
+      orderDropdownValue: Enums.orderDropdownOptions[1],
+      showModal: false,
+      modalContent: null
     }
   }
 
@@ -19,8 +22,15 @@ class App extends Component {
     });
   }
 
+  toggleModal = (data = null) => {
+    this.setState((prevState) => ({
+      showModal: !prevState.showModal,
+      modalContent: data
+    }));
+  }
+
   render() {
-    const { columnsDropdownValue, orderDropdownValue } = this.state;
+    const { columnsDropdownValue, orderDropdownValue, showModal } = this.state;
     return (
       <div className="wrapper">
         <div className="dropdown__container">
@@ -38,7 +48,7 @@ class App extends Component {
           />
           <Dropdown
             title={'Display only:'}
-            options={Enums.columnsDropdownOptions}
+            options={Enums.filterDropdownOptions}
             value={[]}
             onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
             multiple
@@ -46,7 +56,10 @@ class App extends Component {
         </div>
         <Table columnSort={columnsDropdownValue}
           orderSort={orderDropdownValue}
+          toggleModal={this.toggleModal}
         />
+        <Modal isShown={showModal}
+          toggleModal={this.toggleModal} />
       </div>
     );
   }

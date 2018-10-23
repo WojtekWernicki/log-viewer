@@ -8,7 +8,7 @@ class Table extends Component {
   }
 
   render() {
-    const { columnSort, orderSort } = this.props;
+    const { columnSort, orderSort, toggleModal } = this.props;
 
     const sortedData = orderSort.value === 'asc'
       ? data.sort((a, b) => a[columnSort.value] > b[columnSort.value])
@@ -22,7 +22,7 @@ class Table extends Component {
           <div className="table__row--item table__header--item">Description</div>
           <div className="table__row--item table__header--item">Date</div>
         </div>
-        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} />) }
+        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} toggleModal={toggleModal} />) }
       </div>
     )
   }

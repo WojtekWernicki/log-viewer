@@ -5,7 +5,23 @@ class Dropdown extends Component {
     super(props);
 
     this.state = {
-      isOpened: false
+      isOpened: false,
+      selectedOptions: {}
+    }
+  }
+
+  componentDidMount() {
+    const { multiple, options } = this.props;
+
+    if (multiple) {
+      let values;
+      options.forEach((option) => {
+        values = {...values, [option.value]: false};
+      });
+
+      this.setState({
+        selectedOptions: values
+      });
     }
   }
 
@@ -18,6 +34,13 @@ class Dropdown extends Component {
   chooseOption = (option) => {
     this.props.onSelect(option);
     this.toggleList();
+  }
+
+  toggleOption = (field) => {
+    console.info({field});
+    this.setState((prevState) => ({
+      selectedOptions: {...prevState.selectedOptions, [field]: !prevState.selectedOptions[field]}
+    }));
   }
 
   render() {
@@ -46,7 +69,10 @@ class Dropdown extends Component {
                   onClick={() => !multiple && this.chooseOption(option)}>
                   { multiple ?
                     <div className="dropdown__checkbox-wrapper">
-                      <input type="checkbox" id={option.value} value={option.value} />
+                      <input type="checkbox"
+                        id={option.value}
+                        value={option.value}
+                        onChange={() => this.toggleOption(option.value)} />
                       <label htmlFor={option.value}>{option.displayName}</label>
                     </div> :
                     option.displayName

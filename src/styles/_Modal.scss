@@ -1,0 +1,38 @@
+.modal {
+  &__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+  }
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background: $pureWhite;
+    box-shadow: $boxShadow;
+
+    @each $breakpoint in $grid-breakpoints {
+      $i: index($grid-breakpoints, $breakpoint);
+      @media (min-width: $breakpoint) {
+        width: nth($container-max-widths, $i);
+      }
+    }
+  }
+
+  &__header {
+    width: 100%;
+    text-align: right;
+    font-size: 2rem;
+  }
+
+  &__close {
+    cursor: pointer;
+  }
+}

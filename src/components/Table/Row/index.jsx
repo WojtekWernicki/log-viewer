@@ -7,12 +7,8 @@ class Row extends Component {
     super();
   }
 
-  showDetails = () => {
-    console.info({ ...this.props });
-  }
-
   render() {
-    const { title, type, date, description } = this.props;
+    const { title, type, date, description, toggleModal } = this.props;
     const formatedDate = format(date * 1000, 'DD MMM YYYY HH:mm:ss');
 
     return (
@@ -21,7 +17,7 @@ class Row extends Component {
         <div className="table__row--item" data-header="Type">{Enums.eventType[type]}</div>
         <div className="table__row--item" data-header="Description">
           {`${description.slice(0, 80)}...`}
-          <span onClick={this.showDetails}>more details</span>
+          <span onClick={() => toggleModal()}>more details</span>
         </div>
         <div className="table__row--item" data-header="Date">{formatedDate}</div>
       </div>

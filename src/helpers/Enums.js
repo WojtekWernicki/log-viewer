@@ -2,8 +2,8 @@ const Enums = {
   eventType: {
     1: 'Success',
     2: 'Info',
-    3: 'Fail',
-    4: 'Fatal'
+    3: 'Fatal',
+    4: 'Fail'
   },
   columnsDropdownOptions: [{
     displayName: 'Title',
@@ -32,10 +32,10 @@ const Enums = {
     displayName: 'Info',
     value: 2
   }, {
-    displayName: 'Fail',
+    displayName: 'Fatal',
     value: 3
   }, {
-    displayName: 'Fatal',
+    displayName: 'Fail',
     value: 4
   }]
 };
