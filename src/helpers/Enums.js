@@ -5,6 +5,12 @@ const Enums = {
     3: 'Fatal',
     4: 'Fail'
   },
+  eventIcons: {
+    1: 'check',
+    2: 'info',
+    3: 'exclamation',
+    4: 'ban'
+  },
   columnsDropdownOptions: [{
     displayName: 'Title',
     value: 'title'

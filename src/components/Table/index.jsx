@@ -12,11 +12,25 @@ class Table extends Component {
   }
 
   render() {
-    const { columnSort, orderSort, toggleModal } = this.props;
+    const { columnSort, orderSort, toggleModal, selectedFilters } = this.props;
 
     const sortedData = orderSort.value === 'asc'
-      ? data.sort((a, b) => a[columnSort.value] > b[columnSort.value])
-      : data.sort((a, b) => a[columnSort.value] < b[columnSort.value]);
+      ? data.sort((a, b) => {
+        if (['title', 'description'].includes(columnSort.value)) {
+          return a[columnSort.value].toLowerCase() > b[columnSort.value].toLowerCase()
+        }
+        return a[columnSort.value] > b[columnSort.value];
+      })
+      : data.sort((a, b) => {
+        if (['title', 'description'].includes(columnSort.value)) {
+          return a[columnSort.value].toLowerCase() < b[columnSort.value].toLowerCase()
+        }
+        return a[columnSort.value] < b[columnSort.value];
+      });
+
+    const filteredData = selectedFilters.length ?
+      sortedData.filter((data) => selectedFilters.includes(data.type)) :
+      sortedData;
 
     return (
       <div className="table">
@@ -25,8 +39,9 @@ class Table extends Component {
           <div className="table__row--item table__header--item">Type</div>
           <div className="table__row--item table__header--item">Description</div>
           <div className="table__row--item table__header--item">Date</div>
+          <div className="table__row--item table__header--item"></div>
         </div>
-        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} toggleModal={() => this.toggleModal(row)} />) }
+        { filteredData.map((row, i) => <Row key={i} {...row} toggleModal={() => this.toggleModal(row)} />) }
       </div>
     )
   }

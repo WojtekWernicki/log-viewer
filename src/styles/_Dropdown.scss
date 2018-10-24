@@ -17,6 +17,17 @@ $dropdownWidth: 250px;
     width: $dropdownWidth;
     margin: 0 20px 20px 0;
     cursor: pointer;
+
+    &--modal {
+      margin: 0;
+      width: 100%;
+    }
+
+    &--disabled {
+      @extend .noSelect;
+      cursor: initial;
+      color: lighten($black, 30%);
+    }
   }
 
   &__header {

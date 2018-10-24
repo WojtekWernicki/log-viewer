@@ -1,0 +1,14 @@
+.button {
+  appearance: none;
+  background: $pureWhite;
+  border: 1px solid $black;
+  display: inline-block;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 5px;
+
+  @media (min-width: nth($grid-breakpoints, 1)) {
+    height: 30px;
+    padding: 0 20px;
+  }
+}

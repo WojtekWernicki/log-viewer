@@ -37,27 +37,32 @@ class Dropdown extends Component {
   }
 
   toggleOption = (field) => {
-    console.info({field});
     this.setState((prevState) => ({
       selectedOptions: {...prevState.selectedOptions, [field]: !prevState.selectedOptions[field]}
-    }));
+    }), () => {
+      this.props.onSelect(this.state.selectedOptions);
+    });
   }
 
   render() {
-    const { options, value, title, multiple } = this.props;
+    const { options, value, title, multiple, readOnly, modal } = this.props;
     const { isOpened } = this.state;
+    const dropdownClassName = `dropdown__wrapper ${modal ? 'dropdown__wrapper--modal' : ''} ${readOnly ? 'dropdown__wrapper--disabled' : ''}`;
 
     return (
-      <div className="dropdown__wrapper">
+      <div className={dropdownClassName}>
         <div className="dropdown__header"
-            onClick={ () => this.toggleList() }
+            onClick={ () => !readOnly && this.toggleList() }
             title={value}>
           <div className="dropdown__header--title">
-            { `${title} ${Object.keys(value).length ? value.displayName : ''}` }
+            { `${title}${!readOnly && Object.keys(value).length ? ` ${value.displayName ? value.displayName : ''}` : ''}` }
           </div>
-          <div className="dropdown__header--toggle">
-            { isOpened ? '↑' : '↓' }
-          </div>
+          {
+            !readOnly &&
+            <div className="dropdown__header--toggle">
+              { isOpened ? '↑' : '↓' }
+            </div>
+          }
         </div>
         {
           isOpened &&

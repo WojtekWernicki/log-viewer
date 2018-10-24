@@ -11,6 +11,12 @@ class App extends Component {
     this.state = {
       columnsDropdownValue: Enums.columnsDropdownOptions[3],
       orderDropdownValue: Enums.orderDropdownOptions[1],
+      filterDropdownValue: {
+        1: false,
+        2: false,
+        3: false,
+        4: false
+      },
       showModal: false,
       modalContent: null,
       readOnly: true
@@ -32,7 +38,15 @@ class App extends Component {
   }
 
   render() {
-    const { columnsDropdownValue, orderDropdownValue, showModal, modalContent, readOnly } = this.state;
+    const { columnsDropdownValue, orderDropdownValue, filterDropdownValue, showModal, modalContent, readOnly } = this.state;
+    const selectedFilters = Object.keys(filterDropdownValue)
+    .map((key) => ({
+      type: key,
+      isSelected: filterDropdownValue[key]
+    }))
+    .filter((option) => !!option.isSelected)
+    .map((option) => +option.type);
+
     return (
       <div className="wrapper">
         <div className="dropdown__container">
@@ -49,16 +63,17 @@ class App extends Component {
             onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
           />
           <Dropdown
-            title={'Display only:'}
+            title={'Filter by event type'}
             options={Enums.filterDropdownOptions}
-            value={[]}
-            onSelect={(value) => this.changeDropdownValue('orderDropdownValue', value)}
+            value={filterDropdownValue}
+            onSelect={(value) => this.changeDropdownValue('filterDropdownValue', value)}
             multiple
           />
         </div>
         <Table columnSort={columnsDropdownValue}
           orderSort={orderDropdownValue}
           toggleModal={this.toggleModal}
+          selectedFilters={selectedFilters}
         />
         <Modal isShown={showModal}
           toggleModal={this.toggleModal}
