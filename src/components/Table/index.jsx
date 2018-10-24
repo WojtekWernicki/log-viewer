@@ -7,6 +7,10 @@ class Table extends Component {
     super(props);
   }
 
+  toggleModal = (data) => {
+    this.props.toggleModal(data);
+  }
+
   render() {
     const { columnSort, orderSort, toggleModal } = this.props;
 
@@ -22,7 +26,7 @@ class Table extends Component {
           <div className="table__row--item table__header--item">Description</div>
           <div className="table__row--item table__header--item">Date</div>
         </div>
-        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} toggleModal={toggleModal} />) }
+        { sortedData.slice(0, 15).map((row, i) => <Row key={i} {...row} toggleModal={() => this.toggleModal(row)} />) }
       </div>
     )
   }

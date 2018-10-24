@@ -12,7 +12,8 @@ class App extends Component {
       columnsDropdownValue: Enums.columnsDropdownOptions[3],
       orderDropdownValue: Enums.orderDropdownOptions[1],
       showModal: false,
-      modalContent: null
+      modalContent: null,
+      readOnly: true
     }
   }
 
@@ -22,15 +23,16 @@ class App extends Component {
     });
   }
 
-  toggleModal = (data = null) => {
+  toggleModal = (data = null, readOnly = true) => {
     this.setState((prevState) => ({
       showModal: !prevState.showModal,
-      modalContent: data
+      modalContent: data,
+      readOnly
     }));
   }
 
   render() {
-    const { columnsDropdownValue, orderDropdownValue, showModal } = this.state;
+    const { columnsDropdownValue, orderDropdownValue, showModal, modalContent, readOnly } = this.state;
     return (
       <div className="wrapper">
         <div className="dropdown__container">
@@ -59,7 +61,9 @@ class App extends Component {
           toggleModal={this.toggleModal}
         />
         <Modal isShown={showModal}
-          toggleModal={this.toggleModal} />
+          toggleModal={this.toggleModal}
+          readOnly={readOnly}
+          modalContent={modalContent} />
       </div>
     );
   }
