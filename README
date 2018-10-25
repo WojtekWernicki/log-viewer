@@ -1,0 +1,8 @@
+# log-viewer
+
+Simple Log Viewer with sorting by any column and filtering by event types. Based on React and webpack.
+
+## How to run
+
+1. Install packages: `yarn install`
+2. Run webpack dev server: `yarn start:dev`
