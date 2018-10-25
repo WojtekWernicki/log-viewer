@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Row from './Row/';
-import data from '../../assets/server-logs.json';
 
 class Table extends Component {
   constructor(props) {
@@ -12,21 +11,26 @@ class Table extends Component {
   }
 
   render() {
-    const { columnSort, orderSort, toggleModal, selectedFilters } = this.props;
+    const { columnSort, orderSort, toggleModal, selectedFilters, data } = this.props;
 
+    // const sortedData = orderSort.value === 'asc'
+    //   ? data.sort((a, b) => {
+    //     if (['title', 'description'].includes(columnSort.value)) {
+    //       return a[columnSort.value].toLowerCase() > b[columnSort.value].toLowerCase()
+    //     }
+    //     return a[columnSort.value] > b[columnSort.value];
+    //   })
+    //   : data.sort((a, b) => {
+    //     if (['title', 'description'].includes(columnSort.value)) {
+    //       return a[columnSort.value].toLowerCase() < b[columnSort.value].toLowerCase()
+    //     }
+    //     return a[columnSort.value] < b[columnSort.value];
+    //   });
     const sortedData = orderSort.value === 'asc'
-      ? data.sort((a, b) => {
-        if (['title', 'description'].includes(columnSort.value)) {
-          return a[columnSort.value].toLowerCase() > b[columnSort.value].toLowerCase()
-        }
-        return a[columnSort.value] > b[columnSort.value];
-      })
-      : data.sort((a, b) => {
-        if (['title', 'description'].includes(columnSort.value)) {
-          return a[columnSort.value].toLowerCase() < b[columnSort.value].toLowerCase()
-        }
-        return a[columnSort.value] < b[columnSort.value];
-      });
+      ? data.sort((a, b) => a[columnSort.value].toString().toLowerCase() - b[columnSort.value].toString().toLowerCase())
+      : data.sort((a, b) => b[columnSort.value].toString().toLowerCase() - a[columnSort.value].toString().toLowerCase());
+
+    console.info({data, sortedData});
 
     const filteredData = selectedFilters.length ?
       sortedData.filter((data) => selectedFilters.includes(data.type)) :

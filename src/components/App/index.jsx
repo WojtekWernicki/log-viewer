@@ -3,6 +3,7 @@ import Table from '../Table/';
 import Dropdown from '../Dropdown/';
 import Modal from '../Modal/';
 import Enums from '../../helpers/Enums';
+import serverLogs from '../../assets/server-logs.json';
 
 class App extends Component {
   constructor(props) {
@@ -19,8 +20,15 @@ class App extends Component {
       },
       showModal: false,
       modalContent: null,
-      readOnly: true
+      readOnly: true,
+      data: []
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      data: JSON.parse(JSON.stringify(serverLogs))
+    });
   }
 
   changeDropdownValue = (key, value) => {
@@ -37,8 +45,18 @@ class App extends Component {
     }));
   }
 
+  handleSubmit = (data) => {
+    const newData = this.state.data;
+    newData.push(data);
+    this.setState({
+      data: newData
+    });
+  }
+
   render() {
-    const { columnsDropdownValue, orderDropdownValue, filterDropdownValue, showModal, modalContent, readOnly } = this.state;
+    const {
+      columnsDropdownValue, orderDropdownValue, filterDropdownValue, showModal, modalContent, readOnly, data
+    } = this.state;
     const selectedFilters = Object.keys(filterDropdownValue)
     .map((key) => ({
       type: key,
@@ -69,16 +87,25 @@ class App extends Component {
             onSelect={(value) => this.changeDropdownValue('filterDropdownValue', value)}
             multiple
           />
+          <button
+            className="button"
+            type="button"
+            onClick={() => this.toggleModal(null, false)}
+          >
+            Add record
+          </button>
         </div>
         <Table columnSort={columnsDropdownValue}
           orderSort={orderDropdownValue}
           toggleModal={this.toggleModal}
           selectedFilters={selectedFilters}
+          data={data}
         />
         <Modal isShown={showModal}
           toggleModal={this.toggleModal}
           readOnly={readOnly}
-          modalContent={modalContent} />
+          modalContent={modalContent}
+          handleSumbit={this.handleSubmit} />
       </div>
     );
   }

@@ -45,6 +45,12 @@
     cursor: pointer;
   }
 
+  &__errors {
+    border: 1px solid #ff0000;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
   &__row {
     display: flex;
     flex-direction: column;

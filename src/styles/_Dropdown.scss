@@ -67,13 +67,15 @@ $dropdownWidth: 250px;
       padding: 0 20px;
 
       &:hover {
-        background: red;
+        background: $black;
+        color: $white;
       }
     }
   }
 
   &__checkbox-wrapper {
     display: inline-flex;
+    align-items: center;
     width: 100%;
     height: 30px;
     line-height: 30px;

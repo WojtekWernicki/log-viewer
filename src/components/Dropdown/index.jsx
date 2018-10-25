@@ -55,7 +55,7 @@ class Dropdown extends Component {
             onClick={ () => !readOnly && this.toggleList() }
             title={value}>
           <div className="dropdown__header--title">
-            { `${title}${!readOnly && Object.keys(value).length ? ` ${value.displayName ? value.displayName : ''}` : ''}` }
+            { `${title}${!readOnly && value && Object.keys(value).length ? ` ${value.displayName ? value.displayName : ''}` : ''}` }
           </div>
           {
             !readOnly &&

@@ -30,7 +30,7 @@ class Row extends Component {
         </div>
         <div className="table__row--item" data-header="Date">{formatedDate}</div>
         <div className="table__row--item">
-          <button className="button button--small" onClick={() => toggleModal()}>more details</button>
+          <button className="button button--small" onClick={() => toggleModal()}>More details</button>
         </div>
       </div>
     );
